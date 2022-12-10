@@ -278,4 +278,19 @@ class ClientControllerTest {
         .andExpect(MockMvcResultMatchers.content().string("client deleted successfully"))
         .andReturn();
   }
+
+  //newly write test case
+  @Test
+  @DisplayName("Name Exceed 64 Characters Register")
+  void testMock20() throws Exception {
+    MvcResult result = mockMvc.perform(MockMvcRequestBuilders
+            .post("/client/register")
+            .header("Authorization", testAuthHeader)
+            .param("name", "AAAAAAAAAABBBBBBBBBBCCCCCCCCCCDDDDDDDDDDEEEEEEEEEEFFFFFFFFFFGGGGGGGGGG")
+            .param("password", "Testtest123")
+            .param("email", "test@gmail.com"))
+        .andExpect(MockMvcResultMatchers.status().isBadRequest())
+        .andExpect(MockMvcResultMatchers.content().string("register fail, name cannot exceed 64 characters!"))
+        .andReturn();
+  }
 }

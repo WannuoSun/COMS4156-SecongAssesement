@@ -93,10 +93,14 @@ public class ClientController {
       return new ResponseEntity<>("register fail, name cannot be empty!", responseHeaders,
           HttpStatus.BAD_REQUEST);
     }
+
+    // mutant here
     if (name.length() > 64) {
       return new ResponseEntity<>("register fail, name cannot exceed 64 characters!",
           responseHeaders, HttpStatus.BAD_REQUEST);
     }
+
+    //
     //Select client from database by email
     Client client = clientMapper.selectClient(email);
     //Check whether client already exist
