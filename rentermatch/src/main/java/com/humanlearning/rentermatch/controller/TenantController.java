@@ -3,6 +3,7 @@ package com.humanlearning.rentermatch.controller;
 import com.humanlearning.rentermatch.domain.Client;
 import com.humanlearning.rentermatch.domain.Tenant;
 import com.humanlearning.rentermatch.mapper.ClientMapper;
+import com.humanlearning.rentermatch.mapper.MatchMapper;
 import com.humanlearning.rentermatch.mapper.TenantMapper;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,6 +31,10 @@ public class TenantController {
   private TenantMapper tenantMapper;
   @Autowired
   private ClientMapper clientMapper;
+
+  @Autowired
+  private MatchMapper matchMapper;
+
   final static String emptyCid= "tClientId cannot be empty";
 
   @PostMapping("insertTenant")
@@ -269,7 +274,7 @@ public class TenantController {
     String preferZipCode = tenant.getTPreferZipCode();
     String smoking = tenant.getTSmoking();
 
-    List<Tenant> matchedTenants = tenantMapper.getMatch(tClientId, constellation, cooking,
+    List<Tenant> matchedTenants = matchMapper.getMatch(tClientId, constellation, cooking,
         tearlyTimeSleep,
         expenditure, gender, job, lateTimeSleep, numOfRoomates, pet,
         preferLocation, preferType, preferZipCode, smoking);
